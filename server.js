@@ -23,6 +23,11 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static(PUBLIC_DIR));
 app.use('/uploads', express.static(UPLOADS_DIR));
 
+// Dedicated Gift page route
+app.get('/gift', (req, res) => {
+  res.sendFile(path.join(PUBLIC_DIR, 'gift.html'));
+});
+
 // Multer Storage Configuration
 const multerStorage = multer.diskStorage({
   destination: (req, file, cb) => {
