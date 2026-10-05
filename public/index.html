@@ -2,7 +2,7 @@
 <html lang="vi">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
   <title>LOCKET TEXT • Control Panel</title>
   <meta name="description" content="Hệ thống quản trị thông điệp bất ngờ cho ứng dụng Locket">
   <link rel="icon" type="image/png" href="assets/locket-logo.png">
@@ -40,10 +40,24 @@
     </div>
   </header>
 
+  <!-- Mobile Tab Switcher (Visible on mobile screens <= 860px) -->
+  <div class="mobile-tabs-container">
+    <div class="mobile-tabs">
+      <button type="button" class="mobile-tab-btn active" id="tabEditorBtn">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+        <span>Soạn tin</span>
+      </button>
+      <button type="button" class="mobile-tab-btn" id="tabPreviewBtn">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+        <span>Xem trước (Mockup)</span>
+      </button>
+    </div>
+  </div>
+
   <!-- Main Container -->
   <main class="main-layout">
     <!-- Left Column: Control Panel Form -->
-    <section class="control-panel">
+    <section class="control-panel" id="controlPanel">
       <form id="messageForm" autocomplete="off">
         <!-- Card 1: Master Switch -->
         <div class="glass-card main-switch-card">
@@ -183,7 +197,11 @@
 
         <!-- Submit Actions -->
         <div class="action-footer">
-          <button type="button" class="btn btn-secondary" id="resetBtn">Đặt lại form</button>
+          <button type="button" class="btn btn-secondary desktop-only" id="resetBtn">Đặt lại form</button>
+          <button type="button" class="btn btn-secondary mobile-only" id="mobilePreviewShortcutBtn">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+            <span>Xem thử</span>
+          </button>
           <button type="submit" class="btn btn-primary" id="saveBtn">
             <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
             <span>LƯU & KÍCH HOẠT</span>
@@ -193,8 +211,12 @@
     </section>
 
     <!-- Right Column: Interactive Smartphone Mockup -->
-    <section class="preview-panel">
+    <section class="preview-panel" id="previewPanel">
       <div class="preview-header">
+        <button type="button" class="mobile-back-btn" id="mobileBackBtn">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
+          <span>Quay lại soạn thảo</span>
+        </button>
         <h2 class="preview-title">Live Smartphone Preview</h2>
         <span class="preview-tag">Mô phỏng thời gian thực</span>
       </div>

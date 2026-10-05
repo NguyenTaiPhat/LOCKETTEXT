@@ -61,6 +61,14 @@ document.addEventListener('DOMContentLoaded', () => {
   const mockupCtaText = document.getElementById('mockupCtaText');
   const mockupDismissBtn = document.getElementById('mockupDismissBtn');
 
+  // Elements: Mobile Tab Navigation
+  const tabEditorBtn = document.getElementById('tabEditorBtn');
+  const tabPreviewBtn = document.getElementById('tabPreviewBtn');
+  const mobileBackBtn = document.getElementById('mobileBackBtn');
+  const mobilePreviewShortcutBtn = document.getElementById('mobilePreviewShortcutBtn');
+  const controlPanel = document.getElementById('controlPanel');
+  const previewPanel = document.getElementById('previewPanel');
+
   const toastContainer = document.getElementById('toastContainer');
 
   // Local State
@@ -447,6 +455,46 @@ document.addEventListener('DOMContentLoaded', () => {
       showToast('Đã đặt lại form.');
     }
   });
+
+  // --- Mobile Tab Switching ---
+  function switchMobileTab(targetTab) {
+    if (targetTab === 'editor') {
+      tabEditorBtn?.classList.add('active');
+      tabPreviewBtn?.classList.remove('active');
+      controlPanel?.classList.remove('mobile-tab-hidden');
+      previewPanel?.classList.add('mobile-tab-hidden');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else if (targetTab === 'preview') {
+      tabPreviewBtn?.classList.add('active');
+      tabEditorBtn?.classList.remove('active');
+      previewPanel?.classList.remove('mobile-tab-hidden');
+      controlPanel?.classList.add('mobile-tab-hidden');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  }
+
+  tabEditorBtn?.addEventListener('click', () => switchMobileTab('editor'));
+  tabPreviewBtn?.addEventListener('click', () => switchMobileTab('preview'));
+  mobileBackBtn?.addEventListener('click', () => switchMobileTab('editor'));
+  mobilePreviewShortcutBtn?.addEventListener('click', () => switchMobileTab('preview'));
+
+  window.addEventListener('resize', () => {
+    if (window.innerWidth > 860) {
+      controlPanel?.classList.remove('mobile-tab-hidden');
+      previewPanel?.classList.remove('mobile-tab-hidden');
+    } else {
+      if (tabPreviewBtn?.classList.contains('active')) {
+        switchMobileTab('preview');
+      } else {
+        switchMobileTab('editor');
+      }
+    }
+  });
+
+  // Default initial mobile state
+  if (window.innerWidth <= 860) {
+    switchMobileTab('editor');
+  }
 
   // Init
   loadInitialData();
