@@ -1,0 +1,14 @@
+# Dependencies
+node_modules/
+
+# Uploaded dynamic media
+uploads/*
+!uploads/.gitkeep
+
+# Temporary files
+*.tmp
+*.log
+
+# OS files
+.DS_Store
+Thumbs.db
