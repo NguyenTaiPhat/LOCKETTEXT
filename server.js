@@ -7,17 +7,12 @@ const storage = require('./lib/storage');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
-const UPLOADS_DIR = path.join(__dirname, 'uploads');
-const DATA_FILE = path.join(__dirname, 'data', 'message.json');
+const UPLOADS_DIR = storage.UPLOADS_DIR;
+const DATA_FILE = storage.DATA_FILE;
 const PUBLIC_DIR = path.join(__dirname, 'public');
 
-// Ensure directories exist
-if (!fs.existsSync(UPLOADS_DIR)) {
-  fs.mkdirSync(UPLOADS_DIR, { recursive: true });
-}
-if (!fs.existsSync(path.dirname(DATA_FILE))) {
-  fs.mkdirSync(path.dirname(DATA_FILE), { recursive: true });
-}
+// Ensure directories exist safely (creates in /tmp on Vercel)
+storage.ensureStorage();
 
 // Middlewares
 app.use(cors());
@@ -219,4 +214,6 @@ if (require.main === module) {
   startServer();
 }
 
-module.exports = { app, startServer };
+app.app = app;
+app.startServer = startServer;
+module.exports = app;
