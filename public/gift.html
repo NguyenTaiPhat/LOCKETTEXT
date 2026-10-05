@@ -8,18 +8,19 @@
   <link rel="icon" type="image/png" href="assets/locket-logo.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,600&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800;900&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg-dark: #070709;
-      --card-bg: rgba(20, 20, 26, 0.78);
-      --card-border: rgba(255, 196, 0, 0.22);
-      --card-glow: rgba(255, 196, 0, 0.12);
-      --locket-gold: #FFC400;
-      --locket-gold-hover: #FFE066;
+      --bg-dark: #000000;
+      --card-bg: #141417;
+      --card-border: rgba(255, 196, 0, 0.38);
+      --card-glow: rgba(255, 196, 0, 0.14);
+      --gold-primary: #FFB800;
+      --gold-light: #FFC400;
+      --gold-deep: #FFAE00;
       --text-main: #FFFFFF;
-      --text-muted: #A0A0B0;
-      --text-sub: #727282;
+      --text-muted: #8E8E98;
+      --text-sub: #6E6E78;
       --font-heading: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
       --font-body: 'Be Vietnam Pro', -apple-system, BlinkMacSystemFont, sans-serif;
     }
@@ -41,112 +42,67 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      padding: 20px 16px;
+      padding: 24px 16px;
       overflow-x: hidden;
       position: relative;
     }
 
     /* Ambient background glows */
-    .glow-orb-top {
+    .glow-orb {
       position: fixed;
-      top: -120px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 380px;
-      height: 380px;
-      background: radial-gradient(circle, rgba(255, 196, 0, 0.16) 0%, rgba(255, 107, 107, 0.08) 45%, transparent 70%);
-      pointer-events: none;
-      z-index: 0;
-      filter: blur(40px);
-    }
-
-    .glow-orb-bottom {
-      position: fixed;
-      bottom: -150px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 420px;
-      height: 420px;
-      background: radial-gradient(circle, rgba(255, 196, 0, 0.12) 0%, transparent 65%);
+      width: 320px;
+      height: 320px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255, 196, 0, 0.12) 0%, transparent 70%);
       pointer-events: none;
       z-index: 0;
       filter: blur(50px);
     }
+    .glow-orb.top { top: -80px; left: 50%; transform: translateX(-50%); }
+    .glow-orb.bottom { bottom: -100px; left: 50%; transform: translateX(-50%); }
 
-    /* Canvas for falling hearts & petals */
+    /* Canvas for floating subtle hearts */
     #heartsCanvas {
       position: fixed;
-      top: 0;
-      left: 0;
+      inset: 0;
       width: 100%;
       height: 100%;
       pointer-events: none;
       z-index: 1;
     }
 
-    /* Main Container */
+    /* Wrapper */
     .gift-wrapper {
       position: relative;
       z-index: 2;
       width: 100%;
-      max-width: 440px;
+      max-width: 360px;
       margin: auto;
       display: flex;
       flex-direction: column;
       align-items: center;
-      animation: fadeInCard 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      animation: modalFadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
     }
 
-    @keyframes fadeInCard {
+    @keyframes modalFadeIn {
       from {
         opacity: 0;
-        transform: translateY(24px) scale(0.97);
+        transform: scale(0.92) translateY(12px);
       }
       to {
         opacity: 1;
-        transform: translateY(0) scale(1);
+        transform: scale(1) translateY(0);
       }
     }
 
-    /* Header Badge */
-    .gift-header-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: rgba(255, 196, 0, 0.08);
-      border: 1px solid rgba(255, 196, 0, 0.28);
-      padding: 6px 14px;
-      border-radius: 999px;
-      margin-bottom: 16px;
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-    }
-
-    .gift-header-badge img {
-      width: 18px;
-      height: 18px;
-      border-radius: 4px;
-    }
-
-    .gift-header-badge span {
-      font-family: var(--font-heading);
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 1.4px;
-      color: var(--locket-gold);
-      text-transform: uppercase;
-    }
-
-    /* Main Card */
+    /* Main Modal Card (Identical to Image 1) */
     .gift-card {
       width: 100%;
       background: var(--card-bg);
       border: 1px solid var(--card-border);
       border-radius: 28px;
-      padding: 24px 20px 28px;
-      backdrop-filter: blur(24px);
-      -webkit-backdrop-filter: blur(24px);
-      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6), 0 0 35px var(--card-glow);
+      padding: 22px 22px 20px;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.85), 0 0 35px var(--card-glow);
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -155,306 +111,320 @@
       overflow: hidden;
     }
 
-    .gift-card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 10%;
-      right: 10%;
-      height: 1px;
-      background: linear-gradient(90deg, transparent, rgba(255, 196, 0, 0.6), transparent);
+    /* Top Yellow Dash Handle */
+    .card-handle-bar {
+      width: 44px;
+      height: 4.5px;
+      border-radius: 4px;
+      background: var(--gold-light);
+      margin: 0 auto 16px;
+      flex-shrink: 0;
     }
 
-    /* Photo Frame */
-    .photo-container {
-      width: 100%;
-      max-width: 320px;
-      aspect-ratio: 1 / 1;
-      border-radius: 22px;
-      margin-bottom: 20px;
-      overflow: hidden;
-      position: relative;
-      background: #111116;
-      border: 2px solid rgba(255, 196, 0, 0.35);
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5), 0 0 20px rgba(255, 196, 0, 0.15);
-      display: flex;
+    /* Yellow Audio Badge Button (Image 1 top element) */
+    .locket-audio-btn {
+      display: inline-flex;
       align-items: center;
       justify-content: center;
-    }
-
-    .photo-img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-      transition: transform 0.4s ease;
-    }
-
-    .photo-placeholder {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 12px;
-      color: var(--locket-gold);
-    }
-
-    .photo-placeholder svg {
-      width: 64px;
-      height: 64px;
-      stroke: var(--locket-gold);
-      stroke-width: 1.5;
-      fill: rgba(255, 196, 0, 0.08);
-      filter: drop-shadow(0 0 10px rgba(255, 196, 0, 0.4));
-      animation: pulseHeart 2s infinite ease-in-out;
-    }
-
-    @keyframes pulseHeart {
-      0%, 100% { transform: scale(1); }
-      50% { transform: scale(1.08); }
-    }
-
-    /* Title & Message */
-    .gift-title {
-      font-family: var(--font-heading);
-      font-size: 22px;
-      font-weight: 800;
-      color: var(--text-main);
-      margin-bottom: 12px;
-      line-height: 1.3;
-      letter-spacing: -0.3px;
-    }
-
-    .gift-message-box {
-      background: rgba(255, 255, 255, 0.03);
-      border: 1px solid rgba(255, 255, 255, 0.06);
-      border-radius: 18px;
-      padding: 16px 18px;
-      width: 100%;
-      margin-bottom: 20px;
+      gap: 8px;
+      background: transparent;
+      border: none;
+      padding: 6px 14px;
+      border-radius: 999px;
+      margin-bottom: 8px;
+      transition: transform 0.2s ease, filter 0.2s ease, opacity 0.2s ease;
       position: relative;
     }
 
-    .gift-message {
-      font-size: 15px;
-      line-height: 1.65;
-      color: #E2E2EA;
-      white-space: pre-wrap;
-      word-break: break-word;
-      text-align: left;
-    }
-
-    /* Music Player Bar */
-    .music-bar {
-      display: none;
-      align-items: center;
-      gap: 12px;
-      width: 100%;
-      background: rgba(255, 196, 0, 0.07);
-      border: 1px solid rgba(255, 196, 0, 0.25);
-      border-radius: 16px;
-      padding: 10px 14px;
-      margin-bottom: 20px;
+    .locket-audio-btn.has-music {
       cursor: pointer;
-      transition: background 0.2s, transform 0.15s;
+      opacity: 1;
     }
 
-    .music-bar:hover {
-      background: rgba(255, 196, 0, 0.12);
-      transform: translateY(-1px);
+    .locket-audio-btn.has-music:hover {
+      transform: scale(1.05);
+      filter: drop-shadow(0 0 10px rgba(255, 184, 0, 0.5));
     }
 
-    .music-bar.active {
-      display: flex;
+    .locket-audio-btn.has-music:active {
+      transform: scale(0.96);
     }
 
-    .disc-icon {
-      width: 36px;
-      height: 36px;
-      border-radius: 50%;
-      background: #191920;
-      border: 1px solid rgba(255, 196, 0, 0.5);
+    .locket-audio-btn.no-music {
+      opacity: 0.35;
+      cursor: not-allowed;
+      pointer-events: none;
+    }
+
+    .locket-icon-badge {
+      width: 28px;
+      height: 28px;
+      border-radius: 8px;
+      background: var(--gold-primary);
       display: flex;
       align-items: center;
       justify-content: center;
-      color: var(--locket-gold);
+      box-shadow: 0 0 14px rgba(255, 184, 0, 0.45);
       flex-shrink: 0;
       transition: transform 0.3s ease;
     }
 
-    .disc-icon.rotating {
-      animation: rotateDisc 3s linear infinite;
+    .locket-audio-btn.playing .locket-icon-badge {
+      animation: heartPulse 1.2s infinite ease-in-out;
     }
 
-    @keyframes rotateDisc {
-      from { transform: rotate(0deg); }
-      to { transform: rotate(360deg); }
+    @keyframes heartPulse {
+      0%, 100% { transform: scale(1); box-shadow: 0 0 14px rgba(255, 184, 0, 0.45); }
+      50% { transform: scale(1.14); box-shadow: 0 0 22px rgba(255, 184, 0, 0.8); }
     }
 
-    .music-info {
-      flex: 1;
-      text-align: left;
+    .heart-svg {
+      width: 16px;
+      height: 16px;
+      fill: #7D4800;
+      transition: fill 0.2s ease;
     }
 
-    .music-title {
-      font-size: 13px;
-      font-weight: 700;
-      color: var(--locket-gold);
+    .locket-btn-text {
       font-family: var(--font-heading);
+      font-size: 14px;
+      font-weight: 800;
+      letter-spacing: 1px;
+      color: var(--gold-primary);
+      text-transform: uppercase;
     }
 
-    .music-status {
-      font-size: 11px;
-      color: var(--text-sub);
+    /* Wave bars indicator for playing music */
+    .audio-wave-bars {
+      display: none;
+      align-items: flex-end;
+      gap: 2.5px;
+      height: 13px;
+      margin-left: 2px;
     }
 
-    /* Action Button */
+    .locket-audio-btn.playing .audio-wave-bars {
+      display: flex;
+    }
+
+    .audio-wave-bars span {
+      width: 2.5px;
+      background: var(--gold-primary);
+      border-radius: 2px;
+      animation: soundWave 0.8s infinite ease-in-out alternate;
+    }
+    .audio-wave-bars span:nth-child(1) { height: 6px; animation-delay: 0.1s; }
+    .audio-wave-bars span:nth-child(2) { height: 12px; animation-delay: 0.3s; }
+    .audio-wave-bars span:nth-child(3) { height: 8px; animation-delay: 0.2s; }
+
+    @keyframes soundWave {
+      0% { height: 4px; }
+      100% { height: 13px; }
+    }
+
+    /* Photo Container (Displayed ONLY if image is present) */
+    .photo-container {
+      width: 100%;
+      max-width: 280px;
+      aspect-ratio: 1 / 1;
+      border-radius: 20px;
+      overflow: hidden;
+      margin: 12px auto 14px;
+      border: 1.5px solid rgba(255, 196, 0, 0.35);
+      position: relative;
+      background: #000;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
+      display: none; /* Only shown if image is uploaded */
+    }
+
+    .photo-container img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: var(--pos-x, 50%) var(--pos-y, 50%);
+      transform: scale(var(--zoom, 1));
+      transform-origin: var(--pos-x, 50%) var(--pos-y, 50%);
+      display: block;
+      transition: transform 0.2s ease;
+    }
+
+    /* Title (hehee in Image 1) */
+    .gift-title {
+      font-family: var(--font-heading);
+      font-size: 24px;
+      font-weight: 800;
+      color: var(--text-main);
+      margin: 12px 0 6px;
+      letter-spacing: -0.3px;
+      line-height: 1.25;
+      word-break: break-word;
+    }
+
+    /* Subtitle / Message (moah in Image 1 - clean text, NO box) */
+    .gift-message {
+      font-size: 15px;
+      line-height: 1.5;
+      color: var(--text-muted);
+      margin: 0 0 22px;
+      font-weight: 500;
+      word-break: break-word;
+      white-space: pre-wrap;
+    }
+
+    /* CTA Pill Button (yêu > in Image 1) */
     .gift-action-btn {
       width: 100%;
-      background: linear-gradient(135deg, var(--locket-gold) 0%, #FFB300 100%);
-      color: #070709;
-      font-family: var(--font-heading);
-      font-size: 15px;
-      font-weight: 800;
-      letter-spacing: 0.2px;
-      border: none;
-      border-radius: 18px;
-      padding: 14px 20px;
-      cursor: pointer;
-      display: inline-flex;
+      height: 50px;
+      background: linear-gradient(180deg, var(--gold-light) 0%, var(--gold-deep) 100%);
+      border-radius: 999px;
+      display: flex;
       align-items: center;
       justify-content: center;
-      gap: 10px;
-      box-shadow: 0 8px 24px rgba(255, 196, 0, 0.3);
-      transition: transform 0.15s, box-shadow 0.15s;
+      gap: 8px;
+      color: #000000;
+      font-family: var(--font-heading);
+      font-size: 17px;
+      font-weight: 800;
       text-decoration: none;
+      box-shadow: 0 6px 22px rgba(255, 174, 0, 0.45);
+      border: none;
+      cursor: pointer;
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
     }
 
     .gift-action-btn:hover {
       transform: translateY(-2px);
-      box-shadow: 0 12px 28px rgba(255, 196, 0, 0.42);
+      box-shadow: 0 10px 28px rgba(255, 174, 0, 0.55);
     }
 
     .gift-action-btn:active {
       transform: scale(0.98);
     }
 
-    /* Footer */
-    .gift-footer {
-      margin-top: 18px;
-      font-size: 12px;
+    .btn-chevron {
+      stroke: #000000;
+      stroke-width: 3;
+      stroke-linecap: round;
+      stroke-linejoin="round";
+    }
+
+    /* Dismiss Button (Đóng lại in Image 1) */
+    .gift-dismiss-btn {
       color: var(--text-sub);
-      display: flex;
-      align-items: center;
-      gap: 6px;
+      font-family: var(--font-body);
+      font-size: 14px;
+      font-weight: 500;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      margin-top: 14px;
+      display: block;
+      width: 100%;
+      padding: 6px;
+      transition: color 0.2s ease;
     }
 
-    .gift-footer svg {
-      width: 13px;
-      height: 13px;
-      fill: #FF5E7E;
+    .gift-dismiss-btn:hover {
+      color: var(--text-muted);
     }
 
-    /* Inactive State */
-    .inactive-state {
-      padding: 30px 10px;
+    /* Inactive State Box */
+    .inactive-card {
+      padding: 40px 16px;
     }
-
-    .inactive-state svg {
-      width: 54px;
-      height: 54px;
-      stroke: var(--locket-gold);
+    .inactive-icon {
+      width: 48px;
+      height: 48px;
+      margin-bottom: 12px;
+      fill: none;
+      stroke: var(--gold-primary);
       stroke-width: 1.5;
-      fill: rgba(255, 196, 0, 0.08);
-      margin-bottom: 14px;
     }
-
-    .inactive-state h2 {
+    .inactive-card h2 {
       font-family: var(--font-heading);
       font-size: 18px;
-      color: var(--text-main);
       margin-bottom: 8px;
     }
-
-    .inactive-state p {
+    .inactive-card p {
       font-size: 13px;
       color: var(--text-muted);
-      line-height: 1.5;
     }
+
+    /* Loading Spinner */
+    .loading-spinner {
+      padding: 50px 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 14px;
+    }
+    .spinner-svg {
+      width: 36px;
+      height: 36px;
+      animation: spin 1s linear infinite;
+    }
+    @keyframes spin { 100% { transform: rotate(360deg); } }
   </style>
 </head>
 <body>
-  <div class="glow-orb-top"></div>
-  <div class="glow-orb-bottom"></div>
+  <div class="glow-orb top"></div>
+  <div class="glow-orb bottom"></div>
   <canvas id="heartsCanvas"></canvas>
 
   <div class="gift-wrapper">
-    <div class="gift-header-badge">
-      <img src="assets/locket-logo.png" alt="Locket">
-      <span>LOCKET SURPRISE</span>
-    </div>
-
     <main class="gift-card" id="giftCard">
       <!-- Loading State -->
-      <div id="loadingState" style="padding: 40px 0;">
-        <svg viewBox="0 0 24 24" width="36" height="36" stroke="#FFC400" stroke-width="2" fill="none" style="animation: rotateDisc 1.2s linear infinite;">
+      <div id="loadingState" class="loading-spinner">
+        <svg class="spinner-svg" viewBox="0 0 24 24" stroke="#FFC400" stroke-width="2.5" fill="none">
           <circle cx="12" cy="12" r="10" stroke-dasharray="32" stroke-linecap="round"/>
         </svg>
-        <p style="margin-top: 14px; font-size: 13px; color: var(--text-muted);">Đang mở hộp quà...</p>
+        <p style="font-size: 13px; color: var(--text-muted);">Đang mở hộp quà...</p>
       </div>
 
-      <!-- Active Content Container -->
+      <!-- Active Content Container (Matches Image 1) -->
       <div id="contentContainer" style="display: none; width: 100%;">
-        <!-- Photo -->
-        <div class="photo-container" id="photoBox">
-          <div class="photo-placeholder" id="photoPlaceholder">
-            <svg viewBox="0 0 24 24">
-              <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+        <!-- Top Yellow Dash Handle -->
+        <div class="card-handle-bar"></div>
+
+        <!-- Yellow Audio Badge Button (Image 1) -->
+        <button type="button" class="locket-audio-btn no-music" id="locketAudioBtn" title="Bấm để nghe nhạc" disabled>
+          <span class="locket-icon-badge">
+            <svg class="heart-svg" viewBox="0 0 24 24">
+              <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
             </svg>
-          </div>
-          <img id="giftImage" class="photo-img" src="" alt="Couple Photo" style="display: none;">
+          </span>
+          <span class="locket-btn-text">LOCKET</span>
+          <span class="audio-wave-bars" id="audioWaveBars">
+            <span></span><span></span><span></span>
+          </span>
+        </button>
+
+        <!-- Optional Photo Box (Only if image uploaded) -->
+        <div class="photo-container" id="photoBox">
+          <img id="giftImage" src="" alt="Ảnh kỷ niệm">
         </div>
 
         <!-- Title -->
-        <h1 class="gift-title" id="giftTitle">Gửi em bé ❤️</h1>
+        <h1 class="gift-title" id="giftTitle">hehee</h1>
 
-        <!-- Message -->
-        <div class="gift-message-box">
-          <p class="gift-message" id="giftMessage">Chúc em một ngày tràn đầy năng lượng và nụ cười!</p>
-        </div>
+        <!-- Subtitle / Message (moah) -->
+        <p class="gift-message" id="giftMessage">moah</p>
 
-        <!-- Music bar -->
-        <div class="music-bar" id="musicBar">
-          <div class="disc-icon" id="discIcon">
-            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
-              <circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="3"/>
-            </svg>
-          </div>
-          <div class="music-info">
-            <div class="music-title">Giai điệu tình yêu 🎵</div>
-            <div class="music-status" id="musicStatus">Chạm để phát nhạc</div>
-          </div>
-          <svg id="playIcon" viewBox="0 0 24 24" width="20" height="20" fill="currentColor" color="var(--locket-gold)">
-            <polygon points="5 3 19 12 5 21 5 3"/>
-          </svg>
-        </div>
-
-        <!-- Hidden audio element -->
-        <audio id="giftAudio" preload="auto" loop></audio>
-
-        <!-- Action Button -->
+        <!-- Action Button (yêu >) -->
         <a id="giftBtn" href="#" class="gift-action-btn" target="_blank" rel="noopener noreferrer">
-          <span id="giftBtnText">Yêu anh ❤️</span>
-          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
-            <line x1="5" y1="12" x2="19" y2="12"></line>
-            <polyline points="12 5 19 12 12 19"></polyline>
+          <span id="giftBtnText">yêu</span>
+          <svg class="btn-chevron" viewBox="0 0 24 24" width="18" height="18" fill="none">
+            <polyline points="9 18 15 12 9 6"></polyline>
           </svg>
         </a>
+
+        <!-- Dismiss Button (Đóng lại) -->
+        <button type="button" class="gift-dismiss-btn" id="giftDismissBtn">Đóng lại</button>
       </div>
 
       <!-- Inactive State Container -->
-      <div id="inactiveContainer" class="inactive-state" style="display: none;">
-        <svg viewBox="0 0 24 24">
+      <div id="inactiveContainer" class="inactive-card" style="display: none;">
+        <svg class="inactive-icon" viewBox="0 0 24 24">
           <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
         </svg>
         <h2>Hộp quà đang chuẩn bị</h2>
@@ -462,11 +432,8 @@
       </div>
     </main>
 
-    <footer class="gift-footer">
-      <span>Được gửi từ trái tim</span>
-      <svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
-      <span>Locket Text</span>
-    </footer>
+    <!-- Hidden audio element for music playback -->
+    <audio id="giftAudio" preload="auto" loop></audio>
   </div>
 
   <script>
@@ -483,35 +450,27 @@
       });
 
       const particles = [];
-      const particleCount = 24;
+      const particleCount = 20;
 
       class Heart {
-        constructor() {
-          this.reset(true);
-        }
-
+        constructor() { this.reset(true); }
         reset(initial = false) {
           this.x = Math.random() * width;
           this.y = initial ? Math.random() * height : height + 20;
-          this.size = Math.random() * 12 + 8;
-          this.speedY = Math.random() * 0.9 + 0.5;
-          this.speedX = (Math.random() - 0.5) * 0.6;
-          this.opacity = Math.random() * 0.35 + 0.15;
+          this.size = Math.random() * 10 + 7;
+          this.speedY = Math.random() * 0.8 + 0.4;
+          this.speedX = (Math.random() - 0.5) * 0.5;
+          this.opacity = Math.random() * 0.3 + 0.12;
           this.color = Math.random() > 0.4 ? 'rgba(255, 196, 0, ' : 'rgba(255, 94, 126, ';
           this.rotation = Math.random() * Math.PI * 2;
           this.rotSpeed = (Math.random() - 0.5) * 0.02;
         }
-
         update() {
           this.y -= this.speedY;
           this.x += this.speedX;
           this.rotation += this.rotSpeed;
-
-          if (this.y < -30 || this.x < -30 || this.x > width + 30) {
-            this.reset(false);
-          }
+          if (this.y < -30 || this.x < -30 || this.x > width + 30) this.reset(false);
         }
-
         draw() {
           ctx.save();
           ctx.translate(this.x, this.y);
@@ -519,7 +478,6 @@
           ctx.scale(this.size / 24, this.size / 24);
           ctx.fillStyle = this.color + this.opacity + ')';
           ctx.beginPath();
-          // Heart shape path
           ctx.moveTo(0, -6);
           ctx.bezierCurveTo(-10, -18, -20, -5, -20, 6);
           ctx.bezierCurveTo(-20, 16, -10, 24, 0, 32);
@@ -530,60 +488,67 @@
         }
       }
 
-      for (let i = 0; i < particleCount; i++) {
-        particles.push(new Heart());
-      }
+      for (let i = 0; i < particleCount; i++) particles.push(new Heart());
 
       function animate() {
         ctx.clearRect(0, 0, width, height);
-        particles.forEach(p => {
-          p.update();
-          p.draw();
-        });
+        particles.forEach(p => { p.update(); p.draw(); });
         requestAnimationFrame(animate);
       }
       animate();
     })();
 
-    // Gift Message Logic
+    // Gift Logic
     const loadingState = document.getElementById('loadingState');
     const contentContainer = document.getElementById('contentContainer');
     const inactiveContainer = document.getElementById('inactiveContainer');
+    const locketAudioBtn = document.getElementById('locketAudioBtn');
     const giftTitle = document.getElementById('giftTitle');
     const giftMessage = document.getElementById('giftMessage');
     const giftImage = document.getElementById('giftImage');
-    const photoPlaceholder = document.getElementById('photoPlaceholder');
+    const photoBox = document.getElementById('photoBox');
     const giftBtn = document.getElementById('giftBtn');
     const giftBtnText = document.getElementById('giftBtnText');
-    const musicBar = document.getElementById('musicBar');
+    const giftDismissBtn = document.getElementById('giftDismissBtn');
     const giftAudio = document.getElementById('giftAudio');
-    const discIcon = document.getElementById('discIcon');
-    const musicStatus = document.getElementById('musicStatus');
-    const playIcon = document.getElementById('playIcon');
 
     let isPlaying = false;
 
-    musicBar.addEventListener('click', toggleMusic);
+    // Toggle music playback via the yellow [💛 LOCKET] button
+    locketAudioBtn.addEventListener('click', toggleMusic);
 
     function toggleMusic() {
       if (!giftAudio.src) return;
       if (isPlaying) {
         giftAudio.pause();
         isPlaying = false;
-        discIcon.classList.remove('rotating');
-        musicStatus.textContent = 'Chạm để tiếp tục phát';
-        playIcon.innerHTML = '<polygon points="5 3 19 12 5 21 5 3"/>';
+        locketAudioBtn.classList.remove('playing');
       } else {
         giftAudio.play().then(() => {
           isPlaying = true;
-          discIcon.classList.add('rotating');
-          musicStatus.textContent = 'Đang phát giai điệu...';
-          playIcon.innerHTML = '<rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/>';
+          locketAudioBtn.classList.add('playing');
         }).catch(err => {
           console.warn('Playback error:', err);
         });
       }
     }
+
+    giftAudio.addEventListener('ended', () => {
+      isPlaying = false;
+      locketAudioBtn.classList.remove('playing');
+    });
+
+    // Dismiss button behavior
+    giftDismissBtn.addEventListener('click', () => {
+      const card = document.getElementById('giftCard');
+      card.style.transition = 'transform 0.3s ease, opacity 0.3s ease';
+      card.style.opacity = '0';
+      card.style.transform = 'scale(0.9)';
+      setTimeout(() => {
+        card.style.opacity = '1';
+        card.style.transform = 'scale(1)';
+      }, 1500);
+    });
 
     async function loadGift() {
       try {
@@ -597,37 +562,50 @@
           contentContainer.style.display = 'block';
           inactiveContainer.style.display = 'none';
 
-          giftTitle.textContent = data.title || 'Gửi em bé ❤️';
-          giftMessage.textContent = data.message || '';
+          // Title & Message
+          giftTitle.textContent = data.title || 'hehee';
+          giftMessage.textContent = data.message || 'moah';
 
+          // Image alignment & display
           if (data.image_url) {
             giftImage.src = data.image_url;
-            giftImage.style.display = 'block';
-            photoPlaceholder.style.display = 'none';
+            photoBox.style.display = 'block';
+            const posX = typeof data.image_x === 'number' ? data.image_x : 50;
+            const posY = typeof data.image_y === 'number' ? data.image_y : 50;
+            const zoom = typeof data.image_zoom === 'number' ? data.image_zoom : 1;
+            giftImage.style.setProperty('--pos-x', `${posX}%`);
+            giftImage.style.setProperty('--pos-y', `${posY}%`);
+            giftImage.style.setProperty('--zoom', `${zoom}`);
           } else {
-            giftImage.style.display = 'none';
-            photoPlaceholder.style.display = 'flex';
+            photoBox.style.display = 'none';
           }
 
+          // Music playback via yellow button
           if (data.music_url) {
             giftAudio.src = data.music_url;
-            musicBar.classList.add('active');
-            // Try autoplay
+            locketAudioBtn.disabled = false;
+            locketAudioBtn.classList.remove('no-music');
+            locketAudioBtn.classList.add('has-music');
+            locketAudioBtn.title = 'Bấm để nghe nhạc';
+
+            // Attempt autoplay
             giftAudio.play().then(() => {
               isPlaying = true;
-              discIcon.classList.add('rotating');
-              musicStatus.textContent = 'Đang phát giai điệu...';
-              playIcon.innerHTML = '<rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/>';
+              locketAudioBtn.classList.add('playing');
             }).catch(() => {
-              // Autoplay policy blocked, waiting for user gesture
-              musicStatus.textContent = 'Chạm để phát nhạc';
+              // Wait for user gesture on button
             });
           } else {
-            musicBar.classList.remove('active');
             giftAudio.pause();
+            giftAudio.src = '';
+            locketAudioBtn.disabled = true;
+            locketAudioBtn.classList.remove('has-music', 'playing');
+            locketAudioBtn.classList.add('no-music');
+            locketAudioBtn.title = 'Chưa có nhạc';
           }
 
-          giftBtnText.textContent = data.btn_text || 'Yêu anh ❤️';
+          // CTA Button
+          giftBtnText.textContent = data.btn_text || 'yêu';
           giftBtn.href = data.btn_link || 'https://m.me/';
         } else {
           contentContainer.style.display = 'none';
@@ -640,10 +618,7 @@
       }
     }
 
-    // Initial load
     loadGift();
-
-    // Auto refresh every 15s to catch new updates
     setInterval(loadGift, 15000);
   </script>
 </body>
